@@ -1,0 +1,89 @@
+// ==========================================================================
+// OBJECTS | Model List
+// ==========================================================================
+
+.model {
+  position: relative;
+  
+  &__icon {
+    &--44w {
+      width: 34px;
+    }
+  }
+
+  &__list-container {
+    position: relative;
+  }
+
+  &__item {
+    position: relative;
+    border: solid 1px $grey-400;
+    margin-bottom: 20px;
+    background-color: $white-900;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      left: 0;
+    }
+
+    &:before {
+      top: 0;
+      height: 46px;
+      border-bottom: solid 1px $grey-400;
+      background-color: $white-800;
+    }
+
+    &:after {
+      bottom: 0;
+      height: 5px;
+      background-color: $main-color;
+    }
+
+
+
+    dl {
+      padding: 20px 10px;
+      clear: both;
+    }
+  }
+
+  &__fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+    z-index: 100;
+  }
+
+  &__attribute {
+  }  
+
+  &--even {
+    background-color: $white-900; 
+  }
+
+  &--odd {
+    background-color: $white-800;
+  }
+}
+
+.model-nested {
+  
+  &__head {
+    background: $background-color;
+    border: 1px solid $border-color;
+    padding: $base-spacing / 2;
+    margin-top: $base-spacing * 2;
+    font-size: 18px;
+  }
+
+  &__item {
+    padding: $base-spacing / 2;
+    border: solid 1px $grey-400;
+    border-top: 0;
+  }
+}

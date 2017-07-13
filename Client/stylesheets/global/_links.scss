@@ -1,0 +1,20 @@
+// ==========================================================================
+// GLOBAL | Links
+// ==========================================================================
+
+a {
+  color: $main-color;
+  border-bottom: solid 1px currentColor;
+  text-decoration: none;
+  transition: all 0.35s ease;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    color: $main-color-dark;
+    border-bottom-color: transparent;
+  }
+}

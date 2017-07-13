@@ -1,0 +1,46 @@
+// ==========================================================================
+// OBJECTS | Model List
+// ==========================================================================
+
+.main {
+  &__tabs {
+    border-bottom: solid 1px $grey-400;
+    margin-bottom: $base-spacing * 2;
+  }
+}
+
+.tab {
+  float: left;
+  padding: 0 5px;
+  list-style-type: none;
+
+  &:first-child {
+    padding-left: 0;
+  }
+  
+  &--right {
+    float: right;
+  }
+  
+  &__link {
+    display: block;
+    padding: 10px 15px;
+    border: solid 1px $grey-400;
+    border-bottom: 0;
+    background-color: $white-900;
+    cursor: pointer;
+    color: $main-color-dark;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &:hover,
+    &:focus {
+      border-color: $main-color;
+      background-color: $main-color;
+      color: $white-900;
+    }
+  }
+}
+
+

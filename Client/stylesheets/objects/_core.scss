@@ -1,0 +1,31 @@
+// ==========================================================================
+// OBJECTS | Main
+// ==========================================================================
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 $base-spacing;
+
+  @include desktop {
+    padding: 0;
+  }
+}
+
+.main {
+  &__inner {
+	  padding: 0;
+    margin: ($base-spacing * 2) 0
+  }
+
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__actions {
+    margin-top: 40px;
+  }
+}

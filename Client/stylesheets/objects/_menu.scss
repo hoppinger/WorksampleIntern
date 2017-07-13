@@ -1,0 +1,48 @@
+// ==========================================================================
+// OBJECTS | Menu
+// ==========================================================================
+
+.menu {
+  padding: 20px;
+
+  &__tabs {
+    margin: 0;
+    padding: 0 $base-spacing;
+  }
+  
+  &__link {
+    &.active {
+      background-color: $white;
+      padding-bottom: 15px;
+      margin-bottom: -1px; // Same as height of border in in header.scss
+
+      &:hover,
+      &:focus {
+        background-color: $white-800;
+        color: $black-400;
+      }
+    }
+  }
+}
+
+.menu a {
+  display: inline-block;
+}
+
+.menu_entries {
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #3f648a;
+}
+
+.pages {
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.active-page { font-weight: bold; }
+
+.active { font-weight: bold; }
+
+.sub_menu_entry { padding-left: 20px; }

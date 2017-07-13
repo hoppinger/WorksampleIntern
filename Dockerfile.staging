@@ -1,0 +1,11 @@
+FROM microsoft/dotnet:1.1-sdk
+WORKDIR /app
+ENV ASPNETCORE_URLS http://*:5000
+ENV ASPNETCORE_ENVIRONMENT Staging
+EXPOSE 5000
+COPY . /app
+COPY ./appsettings.staging.json /app/appsettings.json
+RUN dotnet restore
+RUN dotnet ef database update -c CourseAndLecturesContext
+RUN dotnet bundle
+CMD [ "dotnet", "run"]

@@ -1,0 +1,5215 @@
+{
+  "namespace": "STPSuppliers",
+  "context_name": "STPSuppliersContext",
+  "database_provider": "postgresql",
+  "api_version": "v1",
+  "target_project_path": "../stip-backoffice",
+  "custom_view_imports": "",
+  "custom_restriction_imports": "",
+  "models": [
+  {
+      "name": "HomePage",
+      "allow_maximisation": true,
+      "type": "homepage",
+      "attributes": [],
+      "permissions": {
+          "index": ["*"],
+          "view": ["*"],
+          "edit": ["*"],
+          "delete": [],
+          "create": []
+      }
+  },
+  {
+    "name": "Admin",
+    
+    "can_login": true,
+    "attributes": [
+      { "type": "string", "name": "Username" },
+      { "type": "string", "name": "Language" },
+      { "type": "string", "name": "FullName" },
+      { "type": "string", "name": "Email" },
+      { "type": "string", "name": "StartDate"},
+      { "type": "string", "name": "EndDate"}
+    ],
+      "permissions": {
+      "index": ["Admin"],
+      "view": ["Admin"],
+      "edit": [],
+      "delete": [],
+      "create": []
+    },
+    "seeds": [
+      { "Id": 1, "Username": "\"admin\"", "Language":"\"en\"", "Email": "\"admin@ad.min\"", "Password":"\"test1234\"" }
+    ]
+  },
+    {
+    "name": "Agent",
+    
+    "can_login": true,
+    "attributes": [
+      { "type": "string", "name": "Username" },
+      { "type": "string", "name": "Language" },
+      { "type": "string", "name": "FullName" },
+      { "type": "string", "name": "Email" },
+      { "type": "string", "name": "StartDate"},
+      { "type": "string", "name": "EndDate"}
+    ],
+      "permissions": {
+      "index": ["Admin"],
+      "view": ["Admin"],
+      "edit": ["Admin"],
+      "delete": ["Admin"],
+      "create": ["Admin"]
+    },
+    "seeds": [
+      { "Id": 1, "Username": "\"agent\"", "Language":"\"en\"", "Email": "\"admin@ad.min\"", "Password":"\"test1234\"" }
+    ]
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {
+      "name": "Address",
+      
+      "abstract": true,
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "StreetName" },
+        { "type": "string", "name": "HouseNumber" },
+        { "type": "string", "name": "Zipcode" },
+        { "type": "string", "name": "City" },
+        { "type": "string", "name": "StateName" },
+        { "type": "string", "name": "country" },
+        { "type": "string", "name": "POBox", "hidden_when_minimised": true },
+        { "type": "string", "name": "POBoxZipcode", "hidden_when_minimised": true },
+        { "type": "string", "name": "Website", "hidden_when_minimised": true }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Contact",
+      
+      "allow_maximisation": true,
+      "abstract": true,
+      
+      "attributes": [
+        { "type": "string", "name": "Email"},
+        { "type": "string", "name": "Phone"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "File",
+      
+      "abstract": true,
+      "allow_maximisation": true,
+      
+      "attributes": [
+        { "type": "file", "name": "file", "hidden_when_minimised": true }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+
+    {
+      "name": "Investment",
+      
+      "abstract": true,
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "bool", "name": "SeperateLegalEntity" },
+        { "type": "string", "name": "Activity"},
+        { "type": "string", "name": "CompanyName" },
+        { "type": "string", "name": "Address" },
+        { "type": "string", "name": "City" },
+        { "type": "string", "name": "Country" },
+        { "type": "string", "name": "Lat" },
+        { "type": "string", "name": "Lng" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "CertificateGroup",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Certificate",
+      
+      "allow_maximisation": true,
+      "abstract": true,
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "Abbreviation" },
+        { "type": "image", "name": "Logo" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "CertificateEvidenceFile",
+      
+      "abstract": true,
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "file", "name": "file" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Incoterm",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "AdminComment",
+      
+      "allow_maximisation": true,
+      "abstract": true,
+      
+      
+      "attributes": [
+        { "type": "text", "name": "Text" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Machine",
+      
+      "allow_maximisation": true,
+      "abstract": true,
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "Explanation" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "MachineRelation",
+      
+      "allow_maximisation": true,
+      
+      "abstract": true,
+      "attributes": [
+        { "type": "date_time", "name": "YearOfInstallation" },
+        { "type": "int", "name": "CapacityInTonnes" },
+        { "type": "int", "name": "NumberOfMachines" },
+        { "type": "text", "name": "Explanation" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "MachinePicture",
+      
+      "abstract": true,
+      "allow_maximisation": true,
+      
+      "attributes": [
+        { "type": "image", "name": "file" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "BuyerCompany",
+      
+      "abstract": true,
+      "allow_maximisation": true,
+      
+      "attributes": [
+          { "type": "string", "name": "FullName" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "BaseSpecie",
+      
+      "abstract": true,
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Specie",
+      
+      "inherits": "BaseSpecie",
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Category",
+      
+      "inherits": "BaseSpecie",
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      },
+      "seeds": []
+    },
+    {
+      "name": "Subcategory",
+      
+      "inherits": "BaseSpecie",
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "OtherSpecie",
+      
+      "inherits": "BaseSpecie",
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "OtherCategory",
+      
+      "inherits": "BaseSpecie",
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "OtherSubCategory",
+      
+      "inherits": "BaseSpecie",
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+
+    {
+      "name": "Source",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "Country",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"
+        }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "UpdateLog",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "date_time", "name": "Date" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "CatchMethod",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "Feedmill",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "Address" },
+        { "type": "string", "name": "Lat" },
+        { "type": "string", "name": "Lng" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "FeedmillType",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "Hatchery",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "Address" },
+        { "type": "string", "name": "Lat" },
+        { "type": "string", "name": "Lng" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "LegalEntity",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "ExportMarket",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"  }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplyChannel",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"  }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "Measure",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"  }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "ProductType",
+      
+      
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "ProductStatus",
+      
+      
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "ProductForm",
+      
+      
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+        "name": "Buyer",
+        
+        "allow_maximisation": true,
+        "inherits": "BuyerCompany",
+        "attributes": [
+          { "type": "string", "name": "CommercialName" },
+          { "type": "image", "name": "Logo", "hidden_when_minimised": true },
+          { "type": "string", "name": "Lat", "hidden_when_minimised": true },
+          { "type": "string", "name": "Lng", "hidden_when_minimised": true },
+          { "type": "bool", "name": "ActiveProduction", "hidden_when_minimised": true },
+          { "type": "bool", "name": "Visible", "hidden_when_minimised": true },
+          { "type": "bool", "name": "VisibleAdmin", "hidden_when_minimised": true },
+          { "type": "bool", "name": "VisibleUser", "hidden_when_minimised": true },
+          { "type": "bool", "name": "VisibleEveryone", "hidden_when_minimised": true },
+          { "type": "date_time", "name": "DateSurveyed", "hidden_when_minimised": true },
+          { "type": "string", "name": "ReasonNotPartisipating", "hidden_when_minimised": true },
+          { "type": "text", "name": "PublicComment", "hidden_when_minimised": true  },
+          { "type": "int", "name": "NumberOfEmployees", "hidden_when_minimised": true},
+          { "type": "date_time", "name": "FoundedSince", "hidden_when_minimised": true},
+          { "type": "string", "name": "OtherSectors", "hidden_when_minimised": true},
+          { "type": "string", "name": "Remarks", "hidden_when_minimised": true },
+
+          { "type": "text", "name": "OtherNeedToHaveRequirementComments", "hidden_when_minimised": true },
+          { "type": "text", "name": "OtherNiceToHaveRequirementComments", "hidden_when_minimised": true },
+
+          { "type": "text", "name": "BuyerCertificateComment", "hidden_when_minimised": true },
+
+          { "type": "text", "name": "BuyerSalesMarketComment", "hidden_when_minimised": true },
+
+           { "type": "text", "name": "BuyerKeyMarketComment", "hidden_when_minimised": true },
+
+          { "type": "text", "name": "OriginInvestmentComment", "hidden_when_minimised": true },
+          { "type": "text", "name": "MarketSideInvestmentComment", "hidden_when_minimised": true },
+          { "type": "text", "name": "OtherInvestmentComment", "hidden_when_minimised": true },
+
+          { "type": "text", "name": "NeedToHaveCertificateComment", "hidden_when_minimised": true },
+          { "type": "text", "name": "NiceToHaveCertificateComment", "hidden_when_minimised": true },
+
+          { "type": "text", "name": "BuyerSpecieVolumeComment", "hidden_when_minimised": true }
+        ],
+        "permissions": {
+          "index": ["Admin", "Agent"],
+          "view": ["Admin", "Agent"],
+          "edit": ["Admin", "Agent"],
+          "delete": ["Admin", "Agent"],
+          "create": ["Admin", "Agent"]
+        }
+    },
+    {
+      "name": "BuyerVisitingAddress",
+      
+      "allow_maximisation": true,
+      "inherits": "Address",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "GeneralContact",
+      
+      "allow_maximisation": true,
+      "inherits": "Contact",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerContactPerson",
+      
+      "allow_maximisation": true,
+      "inherits": "Contact",
+      
+      
+      "attributes": [
+        { "type": "string", "name": "FullName" },
+        { "type": "string", "name": "Function" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerBrochure",
+      
+      "allow_maximisation": true,
+      "inherits": "File",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "ProductList",
+      
+      "allow_maximisation": true,
+      "inherits": "File",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+
+    {
+      "name": "OriginInvestmentType",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        {"type": "string", "name": "name"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+
+    {
+      "name": "OriginInvestment",
+      
+      "allow_maximisation": true,
+      "inherits": "Investment",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "MarketSideInvestmentType",
+      
+      "allow_maximisation": true,
+      "attributes": [
+         {"type": "string", "name": "name"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "MarketSideInvestment",
+      
+      "allow_maximisation": true,
+      "inherits": "Investment",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "OtherInvestment",
+      
+      "allow_maximisation": true,
+      "inherits": "Investment",
+      
+      
+      "attributes": [
+        { "type": "string", "name": "TypeOfInvestment" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerCertificate",
+      
+      "allow_maximisation": true,
+      "inherits": "Certificate",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerOwnedCertificate",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "date_time", "name": "ExpirationDate" },
+        { "type": "date_time", "name": "RegistrationDate" },
+        { "type": "bool", "name": "visible" },
+        { "type": "string", "name": "RegistrationNumber" },
+        { "type": "string", "name": "Website" },
+        { "type": "text", "name": "Comment"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerCertificateEvidenceFile",
+      
+      "allow_maximisation": true,
+      "inherits": "CertificateEvidenceFile",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerTotalImportVolume",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "Volume" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerTotalSalesVolume",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "Volume" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerSpecie",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "NeedToHaveCertificate",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Explanation" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "NiceToHaveCertificate",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Explanation" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "Language",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerAdminComment",
+      
+      "inherits": "AdminComment",
+      "allow_maximisation": true,
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerSpecieVolume",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "OwnImport" },
+        { "type": "int", "name": "SalesVolume" },
+        { "type": "int", "name": "EcoCertified" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerTopSpecie",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Year" },
+        { "type": "int", "name": "MT" },
+        { "type": "text", "name": "Comment" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerImportantProduct",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Fresh" },
+        { "type": "string", "name": "Frozen" },
+        { "type": "string", "name": "ValueAdded" },
+        { "type": "text", "name": "Comment" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerPackagingProduct",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "text", "name": "Comment" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerPackagingSpecie",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Bulk" },
+        { "type": "int", "name": "Consumer" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerImportCountryList",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "bool", "name": "Value" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerSalesMarket",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "Percentage" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerSalesMarketSegment",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+
+
+
+    {
+      "name": "BuyerKeyMarketSegment",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "BuyerKeyMarket",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Percentage" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "CertifiedProduct",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BuyerPurchase",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "BulkPercentage" },
+        { "type": "string", "name": "ConsumerPercentage" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      "name": "Factory",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "ReasonNotPartisipating", "hidden_when_minimised": true },
+        { "type": "string", "name": "Name" },
+        { "type": "date_time", "name": "ConstitutionYear", "hidden_when_minimised": true },
+        { "type": "text", "name": "PublicComment", "hidden_when_minimised": true  },
+        { "type": "string", "name": "ApprovalNumber", "hidden_when_minimised": true  },
+        { "type": "bool", "name": "ActiveProduction", "hidden_when_minimised": true },
+        { "type": "bool", "name": "Visible", "hidden_when_minimised": true },
+        { "type": "bool", "name": "VisibleAdmin", "hidden_when_minimised": true },
+        { "type": "bool", "name": "VisibleUser", "hidden_when_minimised": true },
+        { "type": "bool", "name": "VisibleEveryone", "hidden_when_minimised": true },
+        { "type": "date_time", "name": "DateSurveyed", "hidden_when_minimised": true },
+        { "type": "image", "name": "Logo", "hidden_when_minimised": true },
+        { "type": "int", "name": "PermanentEmployeesFemale", "hidden_when_minimised": true },
+        { "type": "int", "name": "PermanentEmployeesMale", "hidden_when_minimised": true },
+        { "type": "int", "name": "PermanentEmployeesTotal", "hidden_when_minimised": true },
+        { "type": "int", "name": "FlexableEmployeesFemale", "hidden_when_minimised": true },
+        { "type": "int", "name": "FlexableEmployeesMale", "hidden_when_minimised": true },
+        { "type": "int", "name": "FlexableEmployeesTotal", "hidden_when_minimised": true },
+        { "type": "string", "name": "Lat", "hidden_when_minimised": true },
+        { "type": "string", "name": "Lng", "hidden_when_minimised": true },
+        { "type": "int", "name": "TotalColdStorageCapacity", "hidden_when_minimised": true },
+        { "type": "int", "name": "ForeignOwnershipPercentage", "hidden_when_minimised": true },
+        { "type": "string", "name": "ForeignOwnerName", "hidden_when_minimised": true },
+        { "type": "text", "name": "ExportMarketComment", "hidden_when_minimised": true },
+        { "type": "text", "name": "SalesVolumeComment", "hidden_when_minimised": true }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "Brand",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "image", "name": "Logo" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "State",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierBrochure",
+      
+      "allow_maximisation": true,
+      "inherits": "File",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "Catalog",
+      
+      "allow_maximisation": true,
+      "inherits": "File",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "BoatType",
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "string", "name": "Type" }
+      ],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedBoat",
+      
+      
+      
+      "allow_maximisation": true,
+      "attributes": [
+        { "type": "int", "name": "NumberOfBoats" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierCertificate",
+      
+      "allow_maximisation": true,
+      "inherits": "Certificate",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedCertificate",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "date_time", "name": "ExpirationDate" },
+        { "type": "date_time", "name": "RegistrationDate" },
+        { "type": "bool", "name": "visible" },
+        { "type": "string", "name": "RegistrationNumber" },
+        { "type": "string", "name": "Website" },
+        { "type": "text", "name": "Comment"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierCertificateEvidenceFile",
+      
+      "allow_maximisation": true,
+      "inherits": "CertificateEvidenceFile",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "HoldingGroup",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "image", "name": "Logo", "hidden_when_minimised": true },
+        { "type": "text", "name": "Description" },
+        { "type": "string", "name": "StreetName" },
+        { "type": "string", "name": "HouseNumber" },
+        { "type": "string", "name": "Zipcode" },
+        { "type": "string", "name": "City" },
+        { "type": "string", "name": "StateName" },
+        { "type": "string", "name": "country" },
+        { "type": "string", "name": "POBox", "hidden_when_minimised": true },
+        { "type": "string", "name": "POBoxZipcode", "hidden_when_minimised": true },
+        { "type": "string", "name": "Website" },
+        { "type": "string", "name": "Telephone" },
+        { "type": "string", "name": "Email" },
+        { "type": "string", "name": "Fax" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "HoldingCompany",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "bool", "name": "SeafoodCompany" },
+        { "type": "string", "name": "BusinessType" },
+        { "type": "string", "name": "Website" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "HoldingCompanyAddress",
+      
+      "allow_maximisation": true,
+      
+      
+      "inherits": "Address",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierAdminComment",
+      
+      "allow_maximisation": true,
+      "inherits": "AdminComment",
+      
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FreezingMachine",
+      
+      "allow_maximisation": true,
+      "inherits": "Machine",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedFreezingMachine",
+      
+      
+      
+      "allow_maximisation": true,
+      "inherits": "MachineRelation",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierOwnedFreezingMachinePicture",
+      
+      "inherits": "MachinePicture",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "GlazingMachine",
+      
+      "allow_maximisation": true,
+      
+      "inherits": "Machine",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedGlazingMachine",
+      
+      
+      "allow_maximisation": true,
+      "inherits": "MachineRelation",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierOwnedGlazingMachinePicture",
+      
+      "inherits": "MachinePicture",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "CookingMachine",
+      
+      "allow_maximisation": true,
+      "inherits": "Machine",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedCookingMachine",
+      
+      "allow_maximisation": true,
+      
+      "inherits": "MachineRelation",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierOwnedCookingMachinePicture",
+      
+      "inherits": "MachinePicture",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "CanningMachine",
+      
+      "allow_maximisation": true,
+      
+      "inherits": "Machine",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedCanningMachine",
+      
+      "allow_maximisation": true,
+      
+      
+      "inherits": "MachineRelation",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierOwnedCanningMachinePicture",
+      
+      "inherits": "MachinePicture",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+
+    {
+      "name": "IceMachine",
+      
+      "allow_maximisation": true,
+      
+      "inherits": "Machine",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedIceMachine",
+      
+      "allow_maximisation": true,
+      
+      
+      "inherits": "MachineRelation",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierOwnedIceMachinePicture",
+      
+      "inherits": "MachinePicture",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+
+    {
+      "name": "OtherMachine",
+      
+      "allow_maximisation": true,
+      
+      "inherits": "Machine",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+    {
+      "name": "SupplierOwnedOtherMachine",
+      
+      "allow_maximisation": true,
+      
+      
+      "inherits": "MachineRelation",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierOwnedOtherMachinePicture",
+      
+      "inherits": "MachinePicture",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "Project",
+      
+      
+      "allow_maximisation": true,
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "Partner" },
+        { "type": "string", "name": "Funder" },
+        { "type": "string", "name": "ContactName" },
+        { "type": "string", "name": "ContactEmail" },
+        { "type": "date_time", "name": "StartYear" },
+        { "type": "date_time", "name": "EndYear" },
+        { "type": "string", "name": "Website" },
+        { "type": "text", "name": "Description" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "Farm",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "StreetName" },
+        { "type": "string", "name": "HouseNumber" },
+        { "type": "string", "name": "Zipcode" },
+        { "type": "string", "name": "City" },
+        { "type": "string", "name": "StateName" },
+        { "type": "string", "name": "country" },
+        { "type": "string", "name": "Lat" },
+        { "type": "string", "name": "Lng" },
+        { "type": "bool", "name": "Contracted" },
+        { "type": "string", "name": "WaterSpreadArea" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FarmSpecie",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FarmAddress",
+      
+      "allow_maximisation": true,
+      "inherits": "Address",
+      
+      
+      "attributes": [],
+      "permissions": {
+          "index": ["Admin", "Agent"],
+          "view": ["Admin", "Agent"],
+          "edit": ["Admin", "Agent"],
+          "delete": ["Admin", "Agent"],
+          "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "ProductionSystem",
+      
+      "allow_maximisation": true,
+      
+      "attributes": [
+        {"type": "string", "name": "Name" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FarmCertificate",
+      
+      "allow_maximisation": true,
+      
+      "inherits": "Certificate",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "create": ["Admin"]
+      }
+    },
+{
+      "name": "FarmOwnedCertificate",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "date_time", "name": "ExpirationDate" },
+        { "type": "date_time", "name": "RegistrationDate" },
+        { "type": "bool", "name": "visible" },
+        { "type": "string", "name": "RegistrationNumber" },
+        { "type": "string", "name": "Website" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FarmCertificateEvidenceFile",
+      
+      "allow_maximisation": true,
+      
+      
+      "inherits": "CertificateEvidenceFile",
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FarmProductionPerSpecieYear",
+      
+      
+      "allow_maximisation": true,
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "string", "name": "Production" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierSource",
+      
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierCatchMethod",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "string", "name": "Percentage" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FactoryExportFigure",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "SalesVolume" },
+        { "type": "string", "name": "SalesValue" },
+        { "type": "text", "name": "Comment" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "FactoryExportMarketFigure",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "Value" },
+        { "type": "text", "name": "Comment" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierSourcingVolume",
+      
+      "allow_maximisation": true,
+      
+      
+      "attributes": [
+        { "type": "int", "name": "Year" },
+        { "type": "int", "name": "Volume" },
+        { "type": "string", "name": "Percentage" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierSpecieMeasure",
+      
+      
+      "allow_maximisation": true,
+      
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierProduct",
+      
+      
+      "allow_maximisation": true,
+      "attributes": [
+        {"type": "bool", "name": "Value"}
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierAddress",
+      
+      
+      
+      "attributes": [
+        { "type": "string", "name": "StreetName" },
+        { "type": "string", "name": "HouseNumber" },
+        { "type": "string", "name": "Zipcode" },
+        { "type": "string", "name": "City" },
+        { "type": "string", "name": "POBox", "hidden_when_minimised": true },
+        { "type": "string", "name": "POBoxZipcode", "hidden_when_minimised": true },
+        { "type": "string", "name": "Website", "hidden_when_minimised": true }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierContact",
+      
+      
+      
+      "inherits": "Contact",
+      "attributes": [
+        { "type": "string", "name": "Name" },
+        { "type": "string", "name": "Type" },
+        { "type": "text", "name": "Description" }
+      ],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    },
+    {
+      "name": "SupplierSpecie",
+      
+      
+      
+      "allow_maximisation": true,
+      "attributes": [],
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"]
+      }
+    }
+
+  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "relations": [
+    {
+      "source": "Country",
+      "target": "State",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "create": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "add": ["Admin"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "create": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "add": ["Admin"]
+      }
+    },
+    {
+      "source" : "Category",
+      "target": "Subcategory",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "create": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "add": ["Admin"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "create": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "add": ["Admin"]
+      }
+    },
+    {
+      "source" : "Subcategory",
+      "target": "Specie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "create": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "add": ["Admin"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin"],
+        "view": ["Admin"],
+        "create": ["Admin"],
+        "edit": ["Admin"],
+        "delete": ["Admin"],
+        "add": ["Admin"]
+      }
+    },
+
+
+
+
+
+
+
+
+
+    {
+      "source": "Factory",
+      "target": "SupplierBrochure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "Catalog",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierAddress",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "State",
+      "target": "SupplierAddress",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Country",
+      "target": "SupplierAddress",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "Brand",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "SupplierSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Specie",
+      "target": "SupplierSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create":  ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": false
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierContact",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "CertificateGroup",
+      "target": "Certificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "UpdateLog",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "State",
+      "target": "Factory",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "Feedmill",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "FeedmillType",
+      "target": "Feedmill",
+      "sort": "1-N",
+      "permissions": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Feedmill",
+      "target": "BaseSpecie",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Factory",
+      "target": "Hatchery",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Hatchery",
+      "target": "BaseSpecie",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierCatchMethod",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "CatchMethod",
+      "target": "SupplierCatchMethod",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "SupplierCatchMethod",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierSource",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "SupplierSource",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "SupplierSource",
+      "target": "BaseSpecie",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Factory",
+      "target": "Farm",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "ProductionSystem",
+      "target": "FarmSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "FarmSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Farm",
+      "target": "FarmSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "FarmAddress",
+      "target": "Farm",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Farm",
+      "target": "FarmProductionPerSpecieYear",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "FarmProductionPerSpecieYear",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Farm",
+      "target": "FarmOwnedCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "FarmCertificate",
+      "target": "FarmOwnedCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "FarmOwnedCertificate",
+      "target": "FarmCertificateEvidenceFile",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Factory",
+      "target": "Project",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "SupplierCertificate",
+      "target": "SupplierOwnedCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "SupplierOwnedCertificate",
+      "target": "SupplierCertificateEvidenceFile",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "HoldingGroup",
+      "target": "Factory",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": false
+    },
+    {
+      "source": "HoldingGroup",
+      "target": "HoldingCompany",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "HoldingCompanyAddress",
+      "target": "HoldingCompany",
+      "sort": "1-N",
+      "permissions": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierAdminComment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedFreezingMachine",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "FreezingMachine",
+      "target": "SupplierOwnedFreezingMachine",
+      "sort": "1-N",
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "SupplierOwnedFreezingMachine",
+      "target": "SupplierOwnedFreezingMachinePicture",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedGlazingMachine",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "GlazingMachine",
+      "target": "SupplierOwnedGlazingMachine",
+      "sort": "1-N",
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "SupplierOwnedGlazingMachine",
+      "target": "SupplierOwnedGlazingMachinePicture",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedCookingMachine",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "CookingMachine",
+      "target": "SupplierOwnedCookingMachine",
+      "sort": "1-N",
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "SupplierOwnedCookingMachine",
+      "target": "SupplierOwnedCookingMachinePicture",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedIceMachine",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "IceMachine",
+      "target": "SupplierOwnedIceMachine",
+      "sort": "1-N",
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "SupplierOwnedIceMachine",
+      "target": "SupplierOwnedIceMachinePicture",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedCanningMachine",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "CanningMachine",
+      "target": "SupplierOwnedCanningMachine",
+      "sort": "1-N",
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "SupplierOwnedCanningMachine",
+      "target": "SupplierOwnedCanningMachinePicture",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedOtherMachine",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "OtherMachine",
+      "target": "SupplierOwnedOtherMachine",
+      "sort": "1-N",
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "SupplierOwnedOtherMachine",
+      "target": "SupplierOwnedOtherMachinePicture",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierOwnedBoat",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BoatType",
+      "target": "SupplierOwnedBoat",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "FactoryExportFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "FactoryExportFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "FactoryExportFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "FactoryExportMarketFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "FactoryExportMarketFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "FactoryExportMarketFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "ExportMarket",
+      "target": "FactoryExportMarketFigure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierSourcingVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "SupplierSourcingVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "SupplierSourcingVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "SupplyChannel",
+      "target": "SupplierSourcingVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierSpecieMeasure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "SupplierSpecieMeasure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Measure",
+      "target": "SupplierSpecieMeasure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "Factory",
+      "target": "SupplierProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "ProductType",
+      "target": "SupplierProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "SupplierProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "SupplierProduct",
+      "target": "ProductStatus",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "SupplierProduct",
+      "target": "ProductForm",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+      "source": "HoldingGroup",
+      "target": "Buyer",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": false
+    },
+    {
+      "source": "State",
+      "target": "Buyer",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BuyerVisitingAddress",
+      "target": "Buyer",
+      "sort": "1-1",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "GeneralContact",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerContactPerson",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerBrochure",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      }
+    },
+    {
+      "source": "Buyer",
+      "target": "ProductList",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Buyer",
+      "target": "OriginInvestment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "OriginInvestmentType",
+      "target": "OriginInvestment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "MarketSideInvestment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "MarketSideInvestmentType",
+      "target": "MarketSideInvestment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "OtherInvestment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "Investment",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerOwnedCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BuyerCertificate",
+      "target": "BuyerOwnedCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BuyerOwnedCertificate",
+      "target": "BuyerCertificateEvidenceFile",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+
+
+
+
+    {
+      "source": "Buyer",
+      "target": "BuyerTotalImportVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerTotalSalesVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+
+
+
+
+
+    {
+      "source": "Buyer",
+      "target": "NeedToHaveCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "SupplierCertificate",
+      "target": "NeedToHaveCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "NiceToHaveCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "SupplierCertificate",
+      "target": "NiceToHaveCertificate",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "Language",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Buyer",
+      "target": "Incoterm",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": ["Admin", "Agent"]
+      }
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerAdminComment",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BuyerSpecie",
+      "target": "BaseSpecie",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "BuyerSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerSpecieVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "BuyerSpecieVolume",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerTopSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "BuyerTopSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "BuyerTopSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerImportantProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "BuyerImportantProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Source",
+      "target": "BuyerImportantProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerPackagingProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "BuyerPackagingProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BuyerPackagingProduct",
+      "target": "BuyerPackagingSpecie",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BuyerPackagingSpecie",
+      "target": "BaseSpecie",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+
+    {
+      "source": "Buyer",
+      "target": "BuyerImportCountryList",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "Source",
+      "target": "BuyerImportCountryList",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "BuyerImportCountryList",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BuyerImportCountryList",
+      "target": "Country",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide_inverted": true
+    },
+
+    {
+      "source": "Buyer",
+      "target": "BuyerSalesMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BuyerSalesMarketSegment",
+      "target": "BuyerSalesMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Country",
+      "target": "BuyerSalesMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "BuyerSalesMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+
+
+
+    {
+      "source": "Buyer",
+      "target": "UpdateLog",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      }
+    },
+    {
+      "source": "Buyer",
+      "target": "BuyerKeyMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+       "index": ["Admin", "Agent"],
+       "view": ["Admin", "Agent"],
+       "create": ["Admin", "Agent"],
+       "edit": ["Admin", "Agent"],
+       "delete": ["Admin", "Agent"],
+       "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BuyerKeyMarketSegment",
+      "target": "BuyerKeyMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Country",
+      "target": "BuyerKeyMarket",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Buyer",
+      "target": "CertifiedProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": ["Admin", "Agent"],
+        "edit": ["Admin", "Agent"],
+        "delete": ["Admin", "Agent"],
+        "add": []
+      },
+      "permissions_inverted": {
+        "index": [],
+        "view": [],
+        "create": [],
+        "edit": [],
+        "delete": [],
+        "add": []
+      },
+      "hide_inverted": true
+    },
+    {
+      "source": "BaseSpecie",
+      "target": "CertifiedProduct",
+      "sort": "1-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+    {
+      "source": "Certificate",
+      "target": "CertifiedProduct",
+      "sort": "N-N",
+      "permissions": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "permissions_inverted": {
+        "index": ["Admin", "Agent"],
+        "view": ["Admin", "Agent"],
+        "create": [],
+        "edit": [],
+        "delete": ["Admin", "Agent"],
+        "add": ["Admin", "Agent"]
+      },
+      "hide": true
+    },
+
+    {
+     "source": "Buyer",
+     "target": "BuyerPurchase",
+     "sort": "1-N",
+     "permissions": {
+       "index": ["Admin", "Agent"],
+       "view": ["Admin", "Agent"],
+       "create": ["Admin", "Agent"],
+       "edit": ["Admin", "Agent"],
+       "delete": ["Admin", "Agent"],
+       "add": []
+     },
+     "permissions_inverted": {
+       "index": ["Admin", "Agent"],
+       "view": ["Admin", "Agent"],
+       "create": ["Admin", "Agent"],
+       "edit": ["Admin", "Agent"],
+       "delete": ["Admin", "Agent"],
+       "add": []
+     },
+     "hide_inverted": true
+   },
+   {
+     "source": "BaseSpecie",
+     "target": "BuyerPurchase",
+     "sort": "1-N",
+     "permissions": {
+       "index": ["Admin", "Agent"],
+       "view": ["Admin", "Agent"],
+       "create": [],
+       "edit": [],
+       "delete": ["Admin", "Agent"],
+       "add": ["Admin", "Agent"]
+     },
+     "permissions_inverted": {
+       "index": ["Admin", "Agent"],
+       "view": ["Admin", "Agent"],
+       "create": [],
+       "edit": [],
+       "delete": ["Admin", "Agent"],
+       "add": ["Admin", "Agent"]
+     },
+     "hide": true
+   }
+  ]
+}

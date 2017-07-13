@@ -1,0 +1,113 @@
+{
+    "namespace": "CourseAndLectures",
+    "context_name": "CourseAndLecturesContext",
+    "api_version": "v1",
+    "database_provider": "sqlite",
+    "target_project_path": "../Samples/CourseAndLectures",
+    "custom_view_imports": "",
+    "custom_restriction_imports": "",
+    "models": [
+        {
+            "name": "HomePage",
+            "allow_maximisation": true,
+            "type": "homepage",
+            "attributes": [],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["*"],
+                "delete": [],
+                "create": []
+            }
+        },
+        {
+            "name": "Course",
+            "allow_maximisation": true,
+            "attributes": [
+                { "type": "string", "name": "Name" }
+            ],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["*"],
+                "delete": ["*"],
+                "create": ["*"]
+            },
+            "seeds": [
+              { "Id": 1, "Name": "\"Course 1\"" },
+              { "Id": 2, "Name": "\"Course 2\"" },
+              { "Id": 3, "Name": "\"Course 3\"" },
+              { "Id": 4, "Name": "\"Course 4\"" }
+            ]
+        },
+        {
+            "name": "Lecture",
+            "allow_maximisation": true,
+            "attributes": [
+                { "type": "string", "name": "Name" }
+            ],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["*"],
+                "delete": ["*"],
+                "create": ["*"]
+            },
+            "seeds": [
+              { "Id": 1, "Name": "\"Lecture 1\"" },
+              { "Id": 2, "Name": "\"Lecture 2\"" },
+              { "Id": 3, "Name": "\"Lecture 3\"" },
+              { "Id": 4, "Name": "\"Lecture 4\"" }
+            ]            
+        },
+
+        {
+            "name": "Topic",
+            "allow_maximisation": true,
+            "attributes": [
+                { "type": "string", "name": "Name" }
+            ],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["*"],
+                "delete": ["*"],
+                "create": ["*"]
+            },
+            "seeds": [
+              { "Id": 1, "Name": "\"Topic 1\"" },
+              { "Id": 2, "Name": "\"Topic 2\"" },
+              { "Id": 3, "Name": "\"Topic 3\"" },
+              { "Id": 4, "Name": "\"Topic 4\"" }
+            ]            
+        }
+    ],
+    "relations": [{
+            "source": "HomePage",
+            "target": "Course",
+            "sort": "1-N",
+            "seeds": [
+              { "HomePageId": 1, "CourseId": 1 },
+              { "HomePageId": 1, "CourseId": 2 },
+              { "HomePageId": 1, "CourseId": 3 }
+            ]
+        },
+        {
+            "source": "Course",
+            "target": "Lecture",
+            "sort": "1-N",
+            "seeds": [
+              { "CourseId": 1, "LectureId": 1 },
+              { "CourseId": 1, "LectureId": 2 },
+              { "CourseId": 1, "LectureId": 3 }
+            ]
+        },
+        {
+            "source": "Lecture",
+            "target": "Topic",
+            "sort": "N-N",
+            "seeds": [
+              { "LectureId": 1, "TopicId": 1 },
+              { "LectureId": 2, "TopicId": 2 },
+              { "LectureId": 3, "TopicId": 3 },
+              { "LectureId": 3, "TopicId": 4 }
+            ]
+        }     
+    ]
+}

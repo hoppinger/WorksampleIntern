@@ -1,0 +1,80 @@
+// ==========================================================================
+// GLOBAL | Forms
+// ==========================================================================
+
+// ==========================================================================
+// Base - Forms
+// ==========================================================================
+
+form {
+  margin: 0 auto;
+}
+
+// -----
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+// -----
+
+input,
+select,
+textarea {
+  display: block;
+}
+
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"],
+input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"],
+input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input:not([type]), textarea {
+  border: solid 1px $grey-200;
+  padding: 10px;
+  appearance: none;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    border-color: $grey-600;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover {
+
+    }
+  }
+
+  &::placeholder {
+
+  }
+}
+
+input[type="file"] {
+  margin-top: 10px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  width: 100%;
+
+  &:hover,
+  &:focus {
+
+  }
+}
+
+[type="checkbox"],
+[type="radio"] {
+  display: inline;
+}
+

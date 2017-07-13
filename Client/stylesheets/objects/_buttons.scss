@@ -1,0 +1,33 @@
+// ==========================================================================
+// OBJECTS | Buttons
+// ==========================================================================
+
+.button {
+  display: inline-block;
+  position: relative;
+  background-color: $main-color;
+  border: $main-color;
+  color: $white-900;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  height: 40px;
+  line-height: 40px;
+  min-width: 40px;
+  border-radius: 4px;
+  padding: 0 10px;
+
+  &:hover,
+  &:focus {
+    background-color: $main-color-dark;
+  }
+
+  &--inline { 
+    float: left;
+    margin-right: 5px;
+  }
+
+  &__actions {
+    margin-top: $base-spacing;
+  }
+}

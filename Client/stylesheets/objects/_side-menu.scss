@@ -1,0 +1,20 @@
+// ==========================================================================
+// OBJECTS | Model List > Sidemenu
+// ==========================================================================
+
+.side-menu {
+  position: absolute;
+  width: 200px;
+  top: 0;
+  left: 0;
+
+  + .model-list,
+  ~ .main__actions {
+    padding-left: 220px;
+  }
+}
+
+.side-menu-item {
+  margin-bottom: -1px;
+  border-bottom: solid 1px $grey-400;
+}

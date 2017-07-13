@@ -1,0 +1,28 @@
+.breadcrumbs {
+  @include clearfix();
+  padding-bottom: $base-spacing / 2;
+  margin-bottom: $base-spacing / 2;
+  border-bottom: 1px solid $grey-400;
+
+  &__item {
+    float: left;
+    position: relative;
+    margin-right: 30px;    
+    
+    &::after {
+      content: '»';
+      display: inline-block;
+      position: absolute;
+      right: -19px;
+      top: 0;
+      color: $grey-600;    
+    }
+
+    &:last-child {
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+}

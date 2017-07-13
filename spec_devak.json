@@ -1,0 +1,847 @@
+{
+    "namespace": "DeVakApp",
+    "context_name": "DeVakAppContext",
+    "api_version": "v1",
+    "database_provider": "sqlite",
+    "target_project_path": "../DeVak",
+    "custom_view_imports": "import * as CustomViews from '../custom_views'",
+    "custom_restriction_imports": "",
+    "models": [
+      {
+            "name": "HomePage",
+            "allow_maximisation": true,
+            "type": "homepage",
+            "attributes": [],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["Admin"],
+                "delete": [],
+                "create": []
+            },
+            "seeds" : [{
+              "Id" : 1
+            }]
+        },
+        {
+            "name": "Admin",
+            "can_login": true,
+            "can_register": false,
+            "attributes": [
+                { "type": "string", "name": "Username" },
+                { "type": "string", "name": "Language", "hidden_when_minimised": true },
+                { "type": "email", "name": "Email", "hidden_when_minimised": true }
+            ],
+            "permission_filters": {
+                "edit": [["Admin"]]
+            },
+            "permissions": {
+                "view": ["Admin"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [ { "Id": 1, "Username": "\"admin1\"", "Language": "\"en\"", "Email": "\"admin@us.er\"", "Password":"\"test1234\"" } ]
+        },
+        {
+            "name": "Teacher",
+            "can_login": true,
+            "can_register": false,
+            "allow_maximisation": true,
+            "attributes": [
+                { "type": "string", "name": "Username" },
+                { "type": "string", "name": "Language", "hidden_when_minimised": true },
+                { "type": "email", "name": "Email", "hidden_when_minimised": true }
+            ],
+            "permission_filters": {
+                "edit": [["Teacher"]]
+            },
+            "permissions": {
+                "view": ["Admin", "Teacher"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [
+              { "Id": 1, "Username": "\"teacher1\"", "Language": "\"en\"", "Email": "\"teacher1@us.er\"", "Password":"\"test1234\"" },
+              { "Id": 2, "Username": "\"teacher2\"", "Language": "\"en\"", "Email": "\"teacher2@us.er\"", "Password":"\"test1234\"" },
+              { "Id": 3, "Username": "\"teacher3\"", "Language": "\"en\"", "Email": "\"teacher3@us.er\"", "Password":"\"test1234\"" }
+            ]
+        },
+        {
+            "name": "Client",
+            "can_login": true,
+            "can_register": true,
+            "allow_maximisation": true,
+            "attributes": [                
+                { "type": "string", "name": "Name"},
+                { "type": "string", "name": "Surname"},
+                { "type": "string", "name": "AccountInfo", "hidden_when_minimised": true },                
+                { "type": "string", "name": "PaymentAccountInfo", "hidden_when_minimised": true },                
+                { "type": "string", "name": "Language", "hidden_when_minimised": true },                
+                { "type": "string", "name": "Username", "hidden_when_minimised": true },                
+                { "type": "email", "name": "Email", "hidden_when_minimised": true }
+                
+            ],
+            "permission_filters": {
+                "edit": [["Client"]]
+            },
+            "permissions": {
+                "view": ["Admin", "Teacher", "Client"],
+                "edit": ["Admin", "Teacher", "Client"],
+                "delete": ["Admin", "Teacher"],
+                "create": ["Admin", "Teacher"]
+            },
+             "seeds": [
+              { "Id": 1, "Username": "\"client1\"", "Name":"\"Client1\"", "Surname":"\"Surname1\"", "Language": "\"en\"", "Email": "\"client1@us.er\"", "Password":"\"test1234\"", "AccountInfo":"\"AccountInfo1\"", "PaymentAccountInfo":"\"PaymentAccountInfo1\"" },
+              { "Id": 2, "Username": "\"client2\"", "Name":"\"Client2\"", "Surname":"\"Surname2\"","Language": "\"en\"", "Email": "\"client2@us.er\"", "Password":"\"test1234\"", "AccountInfo":"\"AccountInfo2\"", "PaymentAccountInfo":"\"PaymentAccountInfo2\"" },
+              { "Id": 3, "Username": "\"client3\"", "Name":"\"Client3\"", "Surname":"\"Surname3\"","Language": "\"en\"", "Email": "\"client3@us.er\"", "Password":"\"test1234\"", "AccountInfo":"\"AccountInfo3\"", "PaymentAccountInfo":"\"PaymentAccountInfo3\"" }
+            ]
+        },
+        {
+            "name": "Student",
+            "allow_maximisation": true,
+            "attributes": [
+                { "type": "string", "name": "Name" },
+                { "type": "string", "name": "Surname" },
+                { "type": "string", "name": "OtherInfo", "hidden_when_minimised":true }
+                
+            ],
+            "permissions": {
+                "view": ["Admin", "Teacher", "Client"],
+                "edit": ["Admin", "Teacher", "Client"],
+                "delete": ["Admin", "Teacher"],
+                "create": ["Admin", "Teacher", "Client"]
+            },
+             "seeds": [
+              { "Id": 1, "Name": "\"student1\"", "Surname": "\"Surname1\"", "OtherInfo": "\"...\"" },
+              { "Id": 2, "Name": "\"student2\"", "Surname": "\"Surname2\"", "OtherInfo": "\"...\"" },
+              { "Id": 3, "Name": "\"student3\"", "Surname": "\"Surname3\"", "OtherInfo": "\"...\"" },
+              { "Id": 4, "Name": "\"student4\"", "Surname": "\"Surname4\"", "OtherInfo": "\"...\"" },
+              { "Id": 5, "Name": "\"student5\"", "Surname": "\"Surname5\"", "OtherInfo": "\"...\"" },
+              { "Id": 6, "Name": "\"student6\"", "Surname": "\"Surname6\"", "OtherInfo": "\"...\"" },
+              { "Id": 7, "Name": "\"student7\"", "Surname": "\"Surname7\"", "OtherInfo": "\"...\"" }
+            ]
+        },
+        {
+            "name": "Bill",         
+            "allow_maximisation": true,   
+            "attributes": [
+                { "type": "null", "name": "IdInfo", "custom_rendering": "CustomViews.BillId" },
+                { "type": "string", "name": "Info", "hidden_when_minimised":true }
+            ],
+            "permissions": {
+                "view": ["Admin", "Teacher", "Client"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [
+               { "Id": 1, "Info":"\"...\"" },
+               { "Id": 2, "Info":"\"...\"" },
+               { "Id": 3, "Info":"\"...\"" },
+               { "Id": 4, "Info":"\"...\"" },
+               { "Id": 5, "Info":"\"...\"" }
+             ]            
+        },
+        {
+            "name": "Contract",         
+            "allow_maximisation": true,   
+            "attributes": [
+                { "type": "null", "name": "SectionDisciplineCourseLesson", "custom_rendering": "CustomViews.ContractMinimized" },
+                { "type": "text", "name": "Description", "hidden_when_minimised":true }                
+            ],
+            "permissions": {
+                "view": ["Admin", "Teacher", "Client"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [
+              { "Id": 1, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 2, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 3, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 4, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 5, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 6, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 7, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 8, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 9, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 10, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 11, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 12, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 13, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 14, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 15, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 16, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 17, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 18, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 19, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" },
+              { "Id": 20, "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed risus ante. Duis tincidunt, libero ac lobortis scelerisque, ligula ligula vulputate felis, non maximus est lacus vitae lectus. In hac habitasse platea dictumst. Cras efficitur leo odio, id gravida purus interdum at. Morbi eu nisl metus. Pellentesque justo enim, cursus sit amet hendrerit et, pellentesque quis nisl. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed non egestas ipsum. Nunc in ornare nisi. Aliquam molestie sit amet lorem at accumsan. Proin ultricies eros ut ligula gravida pellentesque. In vehicula neque a nulla aliquam condimentum. Proin hendrerit libero mi, sit amet gravida odio dignissim at. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam suscipit sodales neque ut maximus. Maecenas fringilla diam leo, quis porttitor lectus scelerisque sollicitudin. Pellentesque blandit ullamcorper odio tincidunt dapibus. Cras vulputate, orci bibendum dictum pellentesque, diam dui venenatis diam, nec porta lacus libero sed lacus. Nulla vitae quam vel velit sagittis rutrum nec ut neque. Sed tempus elementum libero a aliquam. Donec lacinia porta convallis. Vivamus at ex elementum, molestie lectus ut, fermentum mi. Phasellus libero ex, lobortis sit amet velit at, eleifend sodales leo. Morbi eget eleifend lacus. Quisque sed nibh ac velit ultrices sollicitudin.\"" }
+            ]
+        },
+        {
+            "name": "Section",
+            "allow_maximisation" : true,     
+            "allow_fullscreen" : true,     
+            "attributes": [
+                { "type": "string", "name": "Name", "hidden_label":true},
+                { "type": "string", "name": "Code", "hidden_label":true},
+                { "type": "text", "name": "Description", "hidden_when_minimised": true }
+
+            ],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [
+              { "Id": 1, "Name": "\"Drawing\"", "Code":"\"DR1\"", "Description":"\"Here you will learn how to draw in different styles...\"" },
+              { "Id": 2, "Name": "\"Computer essentials\"", "Code":"\"CE1\"", "Description":"\"Here you will learn how all the trick and tips of your computer...\"" }
+            ]
+        },
+        {
+            "name": "MusicSchool",
+            "allow_fullscreen" : true,
+            "attributes": [
+                { "type": "string", "name": "Name" },
+                { "type": "text", "name": "Description", "hidden_when_minimised": true }
+            ],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [
+              { "Id": 1, "Name": "\"Music School\"", "Description":"\"Here you will learn how to play a music instrument...\"" }
+            ]
+        },
+        {
+            "name": "Discipline",
+            "allow_fullscreen" : true,
+            "allow_maximisation": true,
+            "attributes": [
+                { "type": "string", "name": "Name" },
+                { "type": "string", "name": "Code" },
+                { "type": "text", "name": "Description", "hidden_when_minimised": true }
+            ],
+            "permissions": {
+                "view": ["*"],
+                "edit": ["Admin"],
+                "delete": ["Admin"],
+                "create": ["Admin"]
+            },
+             "seeds": [
+              { "Id": 1, "Name": "\"Contemporary\"","Code":"\"CTP1\"", "Description":"\"Here you will learn how to draw contemporary.\"" },
+              { "Id": 2, "Name": "\"Impressionism\"","Code":"\"IMP1\"", "Description":"\"Here you will learn impressionist techniques.\"" },
+              { "Id": 3, "Name": "\"Office\"","Code":"\"OFF1\"", "Description":"\"Here you will how to master office like a pro!\"" },
+              { "Id": 4, "Name": "\"Virus\"","Code":"\"VIS1\"", "Description":"\"Here you will how to master perfectly protect your computer.\"" },
+              { "Id": 5, "Name": "\"Surfing the web\"","Code":"\"WEB1\"", "Description":"\"Here you will how to surf the web like a pro!\"" }
+            ]
+        },
+        {
+          "name" : "Course",
+          "allow_fullscreen" : true,
+          "allow_maximisation": true,
+          "attributes" : [
+            { "type": "null", "name": "CodeAndName", "custom_rendering": "CustomViews.Course" },
+            { "type" : "string", "name" : "Code", "hidden_when_minimised": true  },
+            { "type" : "string", "name" : "Name", "hidden_when_minimised": true  },
+            { "type" : "image", "name" : "Picture", "hidden_when_minimised": true  },
+            { "type" : "text", "name" : "Description", "hidden_when_minimised": true  },
+            { "type": "null", "name": "Online", "custom_rendering": "CustomViews.CourseOnline"},
+            { "type" : "string", "name" : "AgeCategory", "hidden_when_minimised": true  },
+            { "type" : "int", "name" : "MinimumAge", "hidden_when_minimised": true  },
+            { "type" : "int", "name" : "MaximumAge", "hidden_when_minimised": true  },
+            { "type" : "string", "name" : "RegistrationType", "hidden_when_minimised": true }
+          ],
+          "permissions" : {
+              "view": ["*"],
+              "edit": ["Admin", "Teacher"],
+              "delete": ["Admin", "Teacher"],
+              "create": ["Admin", "Teacher"]
+          },
+          "seeds" : [
+            { 
+              "Id":1, 
+              "Code" : "\"DFL\"",
+              "Name":"\"Drawing from Life\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue quis nulla ac vulputate. Aliquam eu accumsan urna. Proin nec ante quis est rutrum tincidunt ut nec arcu. Nulla facilisi. Nullam vitae velit in nunc condimentum vulputate non vitae tellus. Nullam et arcu sed lorem accumsan porttitor. Maecenas lacinia, ligula nec dapibus ullamcorper, erat justo tincidunt metus, vitae maximus arcu metus ut orci. Sed porttitor placerat efficitur. Pellentesque ac augue facilisis, dictum dolor nec, molestie diam. Nulla neque odio, laoreet sit amet mauris in, aliquet congue ipsum. Etiam eleifend ornare dictum.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"250euro + some registration type\""
+            },
+            { 
+              "Id":2, 
+              "Code" : "\"AAD\"",
+              "Name":"\"Anatomy and Drawing\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"250euro + some registration type\""
+            },
+            { 
+              "Id":3, 
+              "Code" : "\"MON\"",
+              "Name":"\"Monet Drawing\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            },
+            { 
+              "Id":4, 
+              "Code" : "\"MOF\"",
+              "Name":"\"Microsoft Office\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            },
+            { 
+              "Id":5, 
+              "Code" : "\"OOF\"",
+              "Name":"\"Open Office\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            },
+            { 
+              "Id":6, 
+              "Code" : "\"SEC\"",
+              "Name":"\"Account Security\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            },
+            { 
+              "Id":7, 
+              "Code" : "\"OBY\"",
+              "Name":"\"Online Bying\"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            },
+            { 
+              "Id":8, 
+              "Code" : "\"CHR\"",
+              "Name":"\"Surfing With Chrome \"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            },
+            { 
+              "Id":9, 
+              "Code" : "\"MSU\"",
+              "Name":"\"Mobile Surfing \"", 
+              "Picture": "cute_image",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor consectetur gravida. Duis iaculis cursus lobortis. Curabitur eget massa lacus. Nulla vel odio finibus, viverra arcu maximus, imperdiet turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque dignissim feugiat maximus. Duis auctor sapien eu faucibus dictum. Suspendisse vitae tempus felis, a luctus odio. Suspendisse potenti. Aliquam erat volutpat. Quisque pellentesque lacus eu convallis rhoncus. Integer pellentesque gravida sapien, nec porttitor sapien fringilla nec. Morbi in arcu ut nulla vestibulum sodales eu vel diam. Duis non ante et velit imperdiet dictum. Vestibulum arcu sapien, aliquet et lorem id, malesuada congue nibh.\"", 
+              "AgeCategory" : "\"21-40 years old\"",
+              "MinimumAge": 21,
+              "MaximumAge": 40,
+              "RegistrationType" : "\"300euro + some registration type\""
+            }
+          ]
+        },
+        {
+          "name" : "Online",
+          "type":"singleton",
+          "attributes" : [],
+          "permissions" : {
+              "view": ["Admin", "Teacher", "Client"],
+              "edit": ["Admin", "Teacher"],
+              "create": [],
+              "delete": []
+          },
+          "seeds" : []
+        },
+        {
+          "name" : "Complete",
+          "attributes" : [],
+          "type":"singleton",
+          "permissions" : {
+              "view": ["Admin", "Teacher", "Client"],
+              "edit": ["Admin", "Teacher"],
+              "create": [],
+              "delete": []
+          },
+          "seeds" : []
+        },
+        {
+          "name" : "Weekday",
+          
+           "allow_maximisation": true,
+          "attributes" : [{ "type" : "string", "name" : "Day" }],
+          "permissions" : {
+              "view": ["Admin", "Teacher", "Client"],
+              "edit": ["Admin", "Teacher"],
+              "create": [],
+              "delete": []
+          },
+          "seeds" : [{"Id":1, "Day":"\"Saturday\""},
+                     {"Id":2, "Day":"\"Sunday\""},
+                     {"Id":3, "Day":"\"Monday\""},
+                     {"Id":4, "Day":"\"Thuesday\""},
+                     {"Id":5, "Day":"\"Wednesday\""},
+                     {"Id":6, "Day":"\"Thursday\""},
+                     {"Id":7, "Day":"\"Friday\""}]
+        },
+        {
+          "name" : "Lesson",  
+          
+          "allow_maximisation": true,
+          "attributes":[
+             { "type": "null", "name": "CodeDayTimeTeacher", "custom_rendering": "CustomViews.LessonMinimized"},
+             { "type": "null", "name": "Online", "custom_rendering": "CustomViews.LessonOnline"},
+             { "type" : "string", "name" : "Code", "custom_rendering": "CustomViews.Null" },
+             { "type" : "int", "name" : "StartingTime", "custom_rendering": "CustomViews.Null" },
+             { "type" : "int", "name" : "DurationMinutes", "custom_rendering": "CustomViews.Null" },
+             { "type" : "date_time", "name" : "StartingFrom", "custom_rendering": "CustomViews.Null" },
+             { "type" : "text", "name" : "Description", "hidden_when_minimised": true },
+             { "type" : "int", "name" : "MaxRegistrations", "hidden_when_minimised": true },
+             { "type" : "date_time", "name" : "DateFirstPayment" }
+          ],
+          "permissions" : {
+              "view": ["Admin", "Teacher", "Client"],
+              "edit": ["Admin", "Teacher"],
+              "delete": ["Admin", "Teacher"],
+              "create": ["Admin", "Teacher"]
+          },
+          "seeds" : [
+            {
+              "Id":1,
+              "Code": "\"WV1\"",
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":2,
+              "Code": "\"WV2\"",              
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":3,
+              "Code": "\"WV3\"",              
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":4,
+              "Code": "\"WV4\"",              
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":5,
+              "Code": "\"WV5\"",              
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":6,
+              "Code": "\"WV6\"",
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":7,
+              "StartingTime":1500,
+              "Code": "\"WV7\"",
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":8,
+              "Code": "\"WV8\"",
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":9,
+              "Code": "\"WV9\"",
+              "StartingTime":1500,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 5)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            },
+            {
+              "Id":10,
+              "Code": "\"WV10\"",
+              "StartingTime":900,
+              "DurationMinutes":120,
+              "MaxRegistrations":5,
+              "DateFirstPayment":"new DateTime(2017, 2, 5)",
+              "StartingFrom":"new DateTime(2017, 2, 10)",
+              "Description":"\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet diam quis tristique tempor. In vehicula malesuada iaculis. Fusce sit amet feugiat elit. Sed ac erat nec ante sollicitudin fermentum non nec nulla. Nulla vitae mattis velit. Quisque laoreet ex a luctus porta. Nunc a nisi at augue posuere fermentum. Nunc laoreet, leo vulputate ullamcorper eleifend, nibh tortor lacinia ligula, ut accumsan ex nulla id nibh. Ut tempor tempus turpis, at lacinia nunc consequat in. Integer ut dui sit amet justo ultricies blandit. Suspendisse consectetur elit quam, ut molestie massa vulputate non. Sed sagittis dictum mattis. Aliquam non neque in urna luctus vestibulum. Ut mollis ullamcorper commodo.\""
+            }
+          ]
+        },
+        {
+          "name" : "Location",          
+          "allow_maximisation": true,
+          "attributes" : [
+            { "type" : "string", "name" : "City" },
+            { "type" : "string", "name" : "Street" },
+            { "type" : "string", "name" : "Number" },
+            { "type" : "string", "name" : "PostCode" }
+          ],
+          "permissions" : {
+              "view": ["Admin", "Teacher", "Client"],
+              "edit": ["Admin", "Teacher"],
+              "delete": ["Admin", "Teacher"],
+              "create": ["Admin", "Teacher"]
+          },
+          "seeds" : [
+            { "Id" : 1, 
+              "City" : "\"Rotterdam\"",
+              "Street" : "\"Wijnhaven\"",
+              "Number" : "\"152\"",
+              "PostCode" : "\"3011JE\""
+            },
+            { "Id" : 2, 
+              "City" : "\"Delft\"",
+              "Street" : "\"Bachstraat\"",
+              "Number" : "\"51\"",
+              "PostCode" : "\"1032VA\""
+            }
+          ]
+        },
+        {
+          "name" : "Classroom",
+          "allow_maximisation": true,
+          "attributes" : [
+            { "type" : "string", "name" : "RoomNumber" }
+          ],
+          "permissions" : {
+              "view": ["Admin", "Teacher", "Client"],
+              "edit": ["Admin", "Teacher"],
+              "delete": ["Admin", "Teacher"],
+              "create": ["Admin", "Teacher"]
+          },
+          "seeds" : [
+            { "Id" : 1, "RoomNumber" : "\"4H001\"" },
+            { "Id" : 2, "RoomNumber" : "\"B0.15\"" }
+          ]
+        }
+    ],
+    "relations" : [
+      {
+        "source" : "HomePage",
+        "target" : "Course",
+        "sort" : "1-N",
+        "seeds": [{ "HomePageId" : 1, "CourseId" : 1 },
+                  { "HomePageId" : 1, "CourseId" : 2 },
+                  { "HomePageId" : 1, "CourseId" : 3 },
+                  { "HomePageId" : 1, "CourseId" : 4 },
+                  { "HomePageId" : 1, "CourseId" : 5 },
+                  { "HomePageId" : 1, "CourseId" : 6 },
+                  { "HomePageId" : 1, "CourseId" : 7 },
+                  { "HomePageId" : 1, "CourseId" : 8 },
+                  { "HomePageId" : 1, "CourseId" : 9 }]
+      },
+      {
+        "source" : "HomePage",
+        "target" : "Client",
+        "sort" : "1-N",
+        "seeds": [{ "HomePageId" : 1, "ClientId" : 1},
+                  { "HomePageId" : 1, "ClientId" : 2},
+                  { "HomePageId" : 1, "ClientId" : 3},
+                  { "HomePageId" : 1, "ClientId" : 4},
+                  { "HomePageId" : 1, "ClientId" : 5},
+                  { "HomePageId" : 1, "ClientId" : 6},
+                  { "HomePageId" : 1, "ClientId" : 7}]
+      },
+      {
+        "source" : "HomePage",
+        "target" : "Teacher",
+        "sort" : "1-N",
+        "seeds": [{ "HomePageId" : 1, "TeacherId" : 1 },
+                  { "HomePageId" : 1, "TeacherId" : 2 },
+                  { "HomePageId" : 1, "TeacherId" : 3 }]
+      },   
+      {
+        "source" : "HomePage",
+        "target" : "Location",
+        "sort" : "1-N",
+        "seeds": [{ "HomePageId" : 1, "LocationId" : 1 },
+                  { "HomePageId" : 1, "LocationId" : 2 }]
+      },
+      {
+        "source" : "HomePage",
+        "target" : "Section",
+        "sort" : "1-N",
+        "seeds": [{ "HomePageId" : 1, "SectionId" : 1 },
+                  { "HomePageId" : 1, "SectionId" : 2 }]
+      },
+      {
+        "source" : "HomePage",
+        "target" : "Discipline",
+        "sort" : "1-N",
+        "seeds": [{ "HomePageId" : 1, "DisciplineId" : 1 },
+                  { "HomePageId" : 1, "DisciplineId" : 2 },
+                  { "HomePageId" : 1, "DisciplineId" : 3 },
+                  { "HomePageId" : 1, "DisciplineId" : 4 },
+                  { "HomePageId" : 1, "DisciplineId" : 5 }]
+      },
+      {
+        "source" : "Section",
+        "target" : "Discipline",
+        "sort" : "1-N",
+        "seeds": [{ "SectionId" : 1, "DisciplineId" : 1 },
+                  { "SectionId" : 1, "DisciplineId" : 2 },
+                  { "SectionId" : 2, "DisciplineId" : 3 },
+                  { "SectionId" : 2, "DisciplineId" : 4 },
+                  { "SectionId" : 2, "DisciplineId" : 5 }]
+      },
+      {
+        "source" : "Discipline",
+        "target" : "Course",
+        "sort" : "1-N",
+        "seeds": [{ "DisciplineId" : 1, "CourseId":1 },
+                  { "DisciplineId" : 1, "CourseId":2 },
+                  { "DisciplineId" : 2, "CourseId":3 },
+                  { "DisciplineId" : 3, "CourseId":4 },
+                  { "DisciplineId" : 3, "CourseId":5 },
+                  { "DisciplineId" : 4, "CourseId":6 },
+                  { "DisciplineId" : 4, "CourseId":7 },
+                  { "DisciplineId" : 5, "CourseId":8 },
+                  { "DisciplineId" : 5, "CourseId":9 }]
+      },
+      {
+        "source" : "Course",
+        "target" : "Lesson",
+        "sort" : "1-N",
+        "seeds": [{ "CourseId":1, "LessonId":1 },
+                  { "CourseId":1, "LessonId":10 },
+                  { "CourseId":2, "LessonId":2 },
+                  { "CourseId":3, "LessonId":3 },
+                  { "CourseId":4, "LessonId":4 },
+                  { "CourseId":5, "LessonId":5 },
+                  { "CourseId":6, "LessonId":6 },
+                  { "CourseId":7, "LessonId":7 },
+                  { "CourseId":8, "LessonId":8 },
+                  { "CourseId":9, "LessonId":9 }]
+      },
+      {
+        "source" : "Weekday",
+        "target" : "Lesson",
+        "hide": true,
+        "hide_inverted": false,
+        "sort" : "1-N",
+        "style": {
+              "menu": "title",
+              "items": "list",
+              "always_maximised": true
+            }, 
+        "seeds": [{ "WeekdayId":1, "LessonId":1 },
+                  { "WeekdayId":2, "LessonId":10 },
+                  { "WeekdayId":3, "LessonId":2 },
+                  { "WeekdayId":4, "LessonId":3 },
+                  { "WeekdayId":5, "LessonId":4 },
+                  { "WeekdayId":6, "LessonId":5 },
+                  { "WeekdayId":7, "LessonId":6 },
+                  { "WeekdayId":1, "LessonId":7 },
+                  { "WeekdayId":2, "LessonId":8 },
+                  { "WeekdayId":3, "LessonId":9 }]
+      },
+      {
+        "source" : "Teacher",
+        "target" : "Lesson",
+        "hide": true,
+        "hide_inverted": false,
+        "style": {
+              "menu": "title",
+              "items": "list",
+              "always_maximised": true
+            }, 
+        "sort" : "1-N",
+        "seeds": [{ "TeacherId":1, "LessonId":1 },
+                  { "TeacherId":2, "LessonId":10 },
+                  { "TeacherId":3, "LessonId":2 },
+                  { "TeacherId":1, "LessonId":3 },
+                  { "TeacherId":2, "LessonId":4 },
+                  { "TeacherId":3, "LessonId":5 },
+                  { "TeacherId":1, "LessonId":6 },
+                  { "TeacherId":2, "LessonId":7 },
+                  { "TeacherId":3, "LessonId":8 },
+                  { "TeacherId":1, "LessonId":9 }]
+      },
+      {
+        "source" : "Complete",
+        "target" : "Lesson",
+        "hide": true,
+        "hide_inverted": true,
+        "sort" : "1-N",
+        "seeds": []
+      },
+      {
+        "source" : "Online",
+        "target" : "Course",
+        "sort" : "1-N",        
+        "hide": true,
+        "hide_inverted": true,
+        "seeds" : []
+      },
+      {
+        "source" : "Online",
+        "target" : "Lesson",
+        "sort" : "1-N",        
+        "hide": true,
+        "hide_inverted": true,
+        "seeds" : []
+      },
+      {
+        "source" : "Location",
+        "target" : "Lesson",
+        "hide": true,
+        "hide_inverted": false,
+        "sort" : "1-N",
+        "style": {
+              "menu": "title",
+              "items": "list",
+              "always_maximised": true
+            }, 
+        "seeds": [{ "LocationId":1, "LessonId":1 }]
+      },
+      {
+        "source" : "Classroom",
+        "target" : "Lesson",
+        "hide": true,
+        "hide_inverted": false,
+        "style": {
+              "menu": "title",
+              "items": "list",
+              "always_maximised": true
+            }, 
+        "sort" : "1-N",
+        "seeds": [{ "ClassroomId":1, "LessonId":1 }]
+      },
+      {
+        "source": "Client",
+        "target": "Student",
+        "hide": false,
+        "hide_inverted": true,
+        "sort": "1-N",
+        "seeds" : [{ "ClientId":1, "StudentId" : 1},
+                   { "ClientId":2, "StudentId" : 2},
+                   { "ClientId":3, "StudentId" : 3},
+                   { "ClientId":1, "StudentId" : 4},
+                   { "ClientId":2, "StudentId" : 5},
+                   { "ClientId":3, "StudentId" : 6},
+                   { "ClientId":1, "StudentId" : 7}]
+      },    
+      {
+        "source": "Contract",
+        "target": "Bill",
+        "hide": false,
+        "hide_inverted": true,
+        "sort": "1-N",
+        "seeds" : [{ "ContractId" : 1, "BillId" : 1},
+                   { "ContractId" : 1, "BillId" : 2},
+                   { "ContractId" : 2, "BillId" : 3},
+                   { "ContractId" : 3, "BillId" : 4},
+                   { "ContractId" : 3, "BillId" : 5}
+        ]
+      },
+      {
+        "source": "Lesson",
+        "target": "Contract",
+        "hide": false,
+        "hide_inverted": false,
+        "sort": "1-N",
+        "custom_rendering": {
+            "forward": "CustomViews.LessonContract"
+        },
+        "seeds" : [{ "LessonId" : 1, "ContractId" : 1},
+                   { "LessonId" : 2, "ContractId" : 2},
+                   { "LessonId" : 3, "ContractId" : 3},
+                   { "LessonId" : 4, "ContractId" : 4},
+                   { "LessonId" : 5, "ContractId" : 5},
+                   { "LessonId" : 6, "ContractId" : 6},
+                   { "LessonId" : 7, "ContractId" : 7},
+                   { "LessonId" : 8, "ContractId" : 8},
+                   { "LessonId" : 9, "ContractId" : 9},
+                   { "LessonId" : 10, "ContractId" : 10},
+                   { "LessonId" : 1, "ContractId" : 11},
+                   { "LessonId" : 2, "ContractId" : 12},
+                   { "LessonId" : 3, "ContractId" : 13},
+                   { "LessonId" : 4, "ContractId" : 14},
+                   { "LessonId" : 5, "ContractId" : 15}]
+      },
+      {
+        "source": "Student",
+        "target": "Contract",
+        "sort": "1-N",
+        "seeds" : [{ "StudentId" : 1, "ContractId" : 1},
+                   { "StudentId" : 1, "ContractId" : 2},
+                   { "StudentId" : 1, "ContractId" : 3},
+                   { "StudentId" : 2, "ContractId" : 4},
+                   { "StudentId" : 2, "ContractId" : 5},
+                   { "StudentId" : 3, "ContractId" : 6},
+                   { "StudentId" : 4, "ContractId" : 7},
+                   { "StudentId" : 4, "ContractId" : 8},
+                   { "StudentId" : 5, "ContractId" : 9},
+                   { "StudentId" : 6, "ContractId" : 10},
+                   { "StudentId" : 6, "ContractId" : 11},
+                   { "StudentId" : 7, "ContractId" : 12},
+                   { "StudentId" : 7, "ContractId" : 13},
+                   { "StudentId" : 7, "ContractId" : 14},
+                   { "StudentId" : 7, "ContractId" : 15}]
+      }
+    ]
+}

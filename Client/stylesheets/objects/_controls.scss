@@ -1,0 +1,47 @@
+.control {
+  @include clearfix();
+  position: relative;
+
+  &__button  {
+    border: 1px solid $grey-400;
+    margin-left: 5px;
+    
+    &--44w {
+      float: left;
+      width: 54px;
+      margin: 5px 0 0 10px;
+    }
+  }
+}
+
+[class^="control__button"],
+[class*=" control__button"] {
+  float: right;
+  position: relative;
+  padding: 0;
+  background-color: $white-900;
+  width: 40px;
+  height: 40px;
+  color: $main-color;
+  line-height: 40px;
+  text-align: center;
+  text-indent: -9999px;
+  z-index: 99;
+
+  &:hover,
+  &:focus {
+    background-color: $main-color;
+    border-color: $main-color;
+    cursor: pointer;
+  }
+}
+
+[class^="control__icon"],
+[class*=" control__icon"] {
+  width: 25px;  
+  height: 30px; 
+  margin: 0;  
+  position: absolute; 
+  top: 5px; 
+  left: 7px;  
+}
